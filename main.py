@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from CTkTable import *
 import sqlite3
+from api import persiste_dados
 
 # Criando janela
 app = ctk.CTk()
@@ -16,10 +17,6 @@ query_criar_tabela = '''CREATE TABLE IF NOT EXISTS boletim
 '''
 con.execute(query_criar_tabela)
 cursor = con.cursor()
-
-
-
-
 
 
 # Criando a classe
@@ -67,127 +64,44 @@ value = [['Matéria', 'Av1', 'Av2', 'Av3', 'Av4', 'Av5', 'Total', 'Falta'],
 tabela = CTkTable(app, row=13, column=8, values= value)
 tabela.pack(padx=20, pady=20)
 
-# Passando valores para matérias no momento da inicialização do APP
+
+
 
 # Matemática
-result_notas_mat = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Matemática']).fetchall()
-m1.notas.extend([nota[0] for nota in result_notas_mat])
-m1.total = sum(m1.notas)
-tabela.insert(row=1, column=6, value=m1.total)
-m1.falta = 7 - m1.total
-if m1.falta <= 0:
-    m1.falta = 'Passou'
-tabela.insert(row=1, column=7, value=m1.falta)
+persiste_dados(m1, 1, 'Matemática')
 
 # Biologia
-result_notas_bio = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Biologia']).fetchall()
-m2.notas.extend([nota[0] for nota in result_notas_bio])
-m2.total = sum(m2.notas)
-tabela.insert(row=2, column=6, value=m2.total)
-m2.falta = 7 - m2.total
-if m2.falta <= 0:
-    m2.falta = 'Passou'
-tabela.insert(row=2, column=7, value=m2.falta)
+persiste_dados(m2, 2, 'Biologia')
 
 # Física
-result_notas_fis = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Física']).fetchall()
-m3.notas.extend([nota[0] for nota in result_notas_fis])
-m3.total = sum(m3.notas)
-tabela.insert(row=3, column=6, value=m3.total)
-m3.falta = 7 - m3.total
-if m3.falta <= 0:
-    m3.falta = 'Passou'
-tabela.insert(row=3, column=7, value=m3.falta)
+persiste_dados(m3, 3, 'Física')
 
 # Química
-result_notas_qui = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Química']).fetchall()
-m4.notas.extend([nota[0] for nota in result_notas_qui])
-m4.total = sum(m4.notas)
-tabela.insert(row=4, column=6, value=m4.total)
-m4.falta = 7 - m4.total
-if m4.falta <= 0:
-    m4.falta = 'Passou'
-tabela.insert(row=4, column=7, value=m4.falta)
+persiste_dados(m4, 3, 'Química')
 
 # Português
-result_notas_por = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Português']).fetchall()
-m5.notas.extend([nota[0] for nota in result_notas_por])
-m5.total = sum(m5.notas)
-tabela.insert(row=5, column=6, value=m5.total)
-m5.falta = 7 - m5.total
-if m5.falta <= 0:
-    m5.falta = 'Passou'
-tabela.insert(row=5, column=7, value=m5.falta)
+persiste_dados(m5, 5, 'Português')
 
 # Literatura
-result_notas_lit = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Literatura']).fetchall()
-m6.notas.extend([nota[0] for nota in result_notas_lit])
-m6.total = sum(m6.notas)
-tabela.insert(row=6, column=6, value=m6.total)
-m6.falta = 7 - m6.total
-if m6.falta <= 0:
-    m6.falta = 'Passou'
-tabela.insert(row=6, column=7, value=m6.falta)
+persiste_dados(m6, 6, 'Literatura')
 
 # Espanhol
-result_notas_esp = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Espanhol']).fetchall()
-m7.notas.extend([nota[0] for nota in result_notas_esp])
-m7.total = sum(m7.notas)
-tabela.insert(row=7, column=6, value=m7.total)
-m7.falta = 7 - m7.total
-if m7.falta <= 0:
-    m7.falta = 'Passou'
-tabela.insert(row=7, column=7, value=m7.falta)
+persiste_dados(m7, 7, 'Espanhol')
 
 # Inglês
-result_notas_ing = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Inglês']).fetchall()
-m8.notas.extend([nota[0] for nota in result_notas_ing])
-m8.total = sum(m8.notas)
-tabela.insert(row=8, column=6, value=m8.total)
-m8.falta = 7 - m8.total
-if m8.falta <= 0:
-    m8.falta = 'Passou'
-tabela.insert(row=8, column=7, value=m8.falta)
+persiste_dados(m8, 8, 'Inglês')
 
 # História
-result_notas_hist = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['História']).fetchall()
-m9.notas.extend([nota[0] for nota in result_notas_hist])
-m9.total = sum(m9.notas)
-tabela.insert(row=9, column=6, value=m9.total)
-m9.falta = 7 - m9.total
-if m9.falta <= 0:
-    m9.falta = 'Passou'
-tabela.insert(row=9, column=7, value=m9.falta)
+persiste_dados(m9, 9, 'História')
 
 # Geografia
-result_notas_geo = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Geografia']).fetchall()
-m10.notas.extend([nota[0] for nota in result_notas_geo])
-m10.total = sum(m10.notas)
-tabela.insert(row=10, column=6, value=m10.total)
-m10.falta = 7 - m10.total
-if m10.falta <= 0:
-    m10.falta = 'Passou'
-tabela.insert(row=10, column=7, value=m10.falta)
+persiste_dados(m10, 10, 'Geografia')
 
 # Sociologia
-result_notas_soc = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Sociologia']).fetchall()
-m11.notas.extend([nota[0] for nota in result_notas_soc])
-m11.total = sum(m11.notas)
-tabela.insert(row=11, column=6, value=m11.total)
-m11.falta = 7 - m11.total
-if m11.falta <= 0:
-    m11.falta = 'Passou'
-tabela.insert(row=11, column=7, value=m11.falta)
+persiste_dados(m11, 11, 'Sociologia')
 
 # Filosofia
-result_notas_fil = cursor.execute("SELECT nota FROM boletim WHERE materia = ?", ['Filosofia']).fetchall()
-m12.notas.extend([nota[0] for nota in result_notas_fil])
-m12.total = sum(m12.notas)
-tabela.insert(row=12, column=6, value=m12.total)
-m12.falta = 7 - m12.total
-if m12.falta <= 0:
-    m12.falta = 'Passou'
-tabela.insert(row=12, column=7, value=m12.falta)
+persiste_dados(m12, 12, 'Filosofia')
 
 
 # Spinbox para a escolha da nota que será inserida
